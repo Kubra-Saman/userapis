@@ -11,11 +11,11 @@ import {
 
 const studentRoutes = express.Router();
 
-studentRoutes.post("/add", addUserController);
-studentRoutes.get("/getAllUsers", getAllUsersController);
-studentRoutes.get("/getOneUser", getOneUserController);
-studentRoutes.delete("/deleteUser/:id", deleteUserController);
-studentRoutes.put("/editUser/:id",editUserController);
-studentRoutes.post("/login",verifyToken,loginUserController)
+studentRoutes.post("/add",verifyToken,addUserController);
+studentRoutes.get("/getAllUsers",verifyToken,getAllUsersController);
+studentRoutes.get("/getOneUser",verifyToken,getOneUserController);
+studentRoutes.delete("/deleteUser/:id",verifyToken,deleteUserController);
+studentRoutes.put("/editUser/:id",verifyToken,editUserController);
+studentRoutes.post("/login",loginUserController)
 
 export default studentRoutes;

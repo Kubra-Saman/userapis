@@ -8,7 +8,7 @@ export const addUserController = async (req, res) => {
     const user = addUserServices(req.body);
     return res.status(200).json({
       success: true,
-      message: "Student Created Successfully",
+      message: "User Created Successfully",
       user: user,
     });
   } catch (error) {
@@ -47,7 +47,7 @@ export const deleteUserController = async (req, res) => {
     await User.findByIdAndDelete(id);
     return res
       .status(200)
-      .json({ success: true, Message: "Student Deleted Successfully" });
+      .json({ success: true, Message: "User Deleted Successfully" });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -84,18 +84,19 @@ export const loginUserController = async (req, res) => {
     if (!user) {
       return res
         .status(401)
-        .json({ success: false, message: "Student Not Found" });
+        .json({ success: false, message: "User Not Found" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
-    const token = generateToken(user);
-    console.log(token);
-
     if (isMatch) {
-      return res
-        .status(200)
-        .json({ success: true, message: "login successfull", user: user });
+      const token = generateToken(user);
+      return res.status(200).json({
+        success: true,
+        message: "login successfull",
+        user: user,
+        token: token,
+      });
     }
     return res.status(401).json({ success: false, message: "login failed" });
   } catch (error) {
